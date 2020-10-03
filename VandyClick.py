@@ -66,8 +66,10 @@ class CoinDisplay:
         coins_label = mediumFont.render(f"Coins: {user.coins}", 1, (255, 255, 255))
         coins_per_second = mediumFont.render(f"Rate = {user.coins_per_second}", 1, LIGHT_GREEN)
 
-        screen.blit(coins_label, (150, 45))
-        screen.blit(coins_per_second, (WIDTH/2 + 50, 45))
+        screen.blit(coins_label, (coins_label.get_rect(center=(int(self.x + self.width/2),
+                                                               int(self.y + self.height/2)))))
+        screen.blit(coins_per_second, (coins_per_second.get_rect(center=(int(self.x + self.width/2),
+                                                                         int((self.y + self.height/2) + 40)))))
 
 
 # initialize the player
