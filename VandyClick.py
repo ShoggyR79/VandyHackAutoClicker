@@ -24,7 +24,7 @@ pygame.display.set_caption("VandyCoin Clicker")
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 # Load Images
-coin_image = pygame.transform.scale(pygame.image.load(os.path.join("icons", "vandy_coin.png")), (250,250))
+coin_image = pygame.transform.scale(pygame.image.load(os.path.join("icons", "VandyCoin.png")), (250,250))
 
 BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("icons", "background.jpg")), (WIDTH, HEIGHT))
 
