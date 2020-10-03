@@ -16,9 +16,10 @@ LIGHT_YELLOW = (218, 247, 166)
 
 
 # fonts subject to change
-mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 28)
-largeFont = pygame.font.Font("OpenSans-Regular.ttf", 40)
-moveFont = pygame.font.Font("OpenSans-Regular.ttf", 60)
+smallFont = pygame.font.Font("OpenSans-Regular.ttf", 15)
+mediumFont = pygame.font.Font("OpenSans-Regular.ttf", 24)
+largeFont = pygame.font.Font("OpenSans-Regular.ttf", 32)
+moveFont = pygame.font.Font("OpenSans-Regular.ttf", 55)
 
 pygame.display.set_caption("VandyCoin Clicker")
 
@@ -27,6 +28,13 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 coin_image = pygame.transform.scale(pygame.image.load(os.path.join("icons", "VandyCoin.png")), (250,250))
 
 BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join("icons", "background.jpg")), (WIDTH, HEIGHT))
+
+
+'''Buildings'''
+# follow the format below
+# NAME = pygame.transform.scale(pygame.image.load(os.path.join("icons", FILENAME.extension)), (300, 64))
+
+
 
 
 # set up coin class
@@ -72,6 +80,48 @@ class CoinDisplay:
                                                                          int((self.y + self.height/2) + 40)))))
 
 
+# Upgrades Class
+class Upgrades:
+    def __init__(self, name, x, y, image, icon, base_cost, cost_scaling, cps):
+        self.name = name
+        self.x = x
+        self.y = y
+        self.width = 300
+        self.height = 64
+
+        self.image = image
+        self.icon = icon
+        self.base_cost = base_cost
+        self.cost_scaling = cost_scaling
+        self.cps = cps
+
+        self.times_bought= 0
+        self.created = 0
+
+    def collide_point(self, mouse_pos):
+        return pygame.Rect(self.x, self.y, self.width, self.height).collidepoint(mouse_pos)
+
+    def get_total_cost(self):
+        return self.base_cost * self.cost_scaling**self.times_bought
+
+    def draw(self, solid=True):
+        # TODO: change the font of the upgrades
+        upgrade_cost_font = smallFont
+        upgrade_times_bought_font = mediumFont
+
+        icon = self.image
+        cost = upgrade_cost_font.render(f"{self.get_total_cost()} VH Coins", 1, LIGHT_YELLOW)
+        times_bought = upgrade_times_bought_font.render(f"{self.times_bought} Times", 1, LIGHT_ORANGE)
+        if not solid:
+            icon.setalpha(100)
+        else:
+            icon.setalpha(255)
+
+        screen.blit(icon, (self.x, self.y))
+        screen.blit(cost, (self.x + 85, self.y + self.height-30))
+        screen.blit(times_bought, (self.x + self.width - 40, self.y + self.height + 10))
+
+
 # initialize the player
 class Player:
     def __init__(self):
@@ -84,6 +134,8 @@ coin = MainCoin(100, 100)
 coin_display = CoinDisplay(100, 0)
 user = Player()
 
+
+# constructing upgrades class
 
 # main loop
 def main():
