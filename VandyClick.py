@@ -41,7 +41,6 @@ purse_img = pygame.transform.scale(pygame.image.load(os.path.join("icons", "Purs
 
 
 
-
 # set up coin class
 class MainCoin:
     def __init__(self, x, y):
@@ -160,6 +159,11 @@ def main():
     # coins = 0
     # coins_per_second = 0
     clock = pygame.time.Clock()
+    channel_a = pygame.mixer.Channel(0)
+    channel_b = pygame.mixer.Channel(1)
+    click_sound = pygame.mixer.Sound(os.path.join('audio', 'bgmusic.wav'))
+    channel_a.set_volume(0.5)
+    channel_a.play(click_sound, -1)
 
     def redraw_window():
         # Draw background
@@ -192,6 +196,8 @@ def main():
                 if coin.collide_point(mouse_pos):
                     user.coins += 1
                     coin.animation_state = 1
+                    click_sound = pygame.mixer.Sound(os.path.join('audio', 'switch21.wav'))
+                    channel_b.play(click_sound)
 
                 for upgrade in list_of_upgrades:
                     if upgrade.collide_point(mouse_pos) and user.coins >= upgrade.get_total_cost():
