@@ -77,7 +77,7 @@ class CoinDisplay:
     def draw(self):
 
         coins_label = mediumFont.render(f"Coins: {int(user.coins)}", 1, (255, 255, 255))
-        coins_per_second = mediumFont.render(f"Rate = {user.coins_per_second} per Tick", 1, LIGHT_GREEN)
+        coins_per_second = mediumFont.render(f"Rate = {round(user.coins_per_second, 1)} per Tick", 1, LIGHT_GREEN)
 
         screen.blit(coins_label, (coins_label.get_rect(center=(int(self.x + self.width/2),
                                                                int(self.y + self.height/2)))))
