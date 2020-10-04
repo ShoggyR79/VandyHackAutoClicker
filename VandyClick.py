@@ -173,7 +173,7 @@ class Prize:
 coin = MainCoin(100, 100)
 coin_display = CoinDisplay(100, 0)
 user = Player()
-prize = Prize(700, HEIGHT - 500, PRIZE, 10)
+prize = Prize(700, HEIGHT - 500, PRIZE, 70000)
 
 # constructing upgrades class
 base_y = HEIGHT
